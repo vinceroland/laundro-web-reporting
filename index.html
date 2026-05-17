@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laundro Report System</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="bg-gradient"></div>
+    <nav class="sidebar" aria-label="Main Navigation">
+      <ul>
+        <li>
+          <a href="index.html" class="nav-link selected"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-house-icon lucide-house"
+            >
+              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+              <path
+                d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              />
+            </svg>
+            Home</a
+          >
+        </li>
+        <li>
+          <a href="data-gathering.html" class="nav-link">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-file-text-icon lucide-file-text"
+            >
+              <path
+                d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+              />
+              <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+              <path d="M10 9H8" />
+              <path d="M16 13H8" />
+              <path d="M16 17H8" /></svg
+            >Data Gathering</a
+          >
+        </li>
+        <li>
+          <a href="findings.html" class="nav-link"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-file-search-corner-icon lucide-file-search-corner"
+            >
+              <path
+                d="M11.1 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.589 3.588A2.4 2.4 0 0 1 20 8v3.25"
+              />
+              <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+              <path d="m21 22-2.88-2.88" />
+              <circle cx="16" cy="17" r="3" /></svg
+            >Findings</a
+          >
+        </li>
+        <li>
+          <a href="prototype.html" class="nav-link"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-bug-play-icon lucide-bug-play"
+            >
+              <path
+                d="M10 19.655A6 6 0 0 1 6 14v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 3.97"
+              />
+              <path
+                d="M14 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z"
+              />
+              <path d="M14.12 3.88 16 2" />
+              <path d="M21 5a4 4 0 0 1-3.55 3.97" />
+              <path d="M3 21a4 4 0 0 1 3.81-4" />
+              <path d="M3 5a4 4 0 0 0 3.55 3.97" />
+              <path d="M6 13H2" />
+              <path d="m8 2 1.88 1.88" />
+              <path d="M9 7.13V6a3 3 0 1 1 6 0v1.13" /></svg
+            >Prototype</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <header>
+        <div class="logo">
+          <img src="laundro.png" alt="Laundro Logo" />
+          <h2>LAUNDRO</h2>
+        </div>
+        <p>
+          A comprehensive report on the development and evaluation of Laundro.
+        </p>
+      </header>
+      <div class="description">
+        <h2>Home</h2>
+        <p>
+          This report documents the individual contributions of each person in
+          the development of the Laundro system.
+        </p>
+      </div>
+      <section class="card">
+        <h2>Group Profiles</h2>
+        <p>Flip to reveal details.</p>
+        <div class="profiles">
+          <div class="profile card hover flip-card">
+            <input
+              type="checkbox"
+              id="profile-1-flip"
+              class="profile-flip-toggle"
+            />
+            <label for="profile-1-flip" class="profile-flip-inner">
+              <span class="profile-flip-face profile-flip-front">
+                <img
+                  src="members/profile_1.jpg"
+                  alt="Vincent Roland C. Atole"
+                />
+                <h3>Vincent Roland C. Atole</h3>
+                <p class="role">Leader</p>
+              </span>
+              <span class="profile-flip-face profile-flip-back">
+                <h3>Vincent Roland C. Atole</h3>
+                <p class="role">Leader</p>
+                <p class="role-description">
+                  Directed the overall development of the "Laundro" prototype to
+                  maintain consistency across the app. Specifically: Initial
+                  layout design and development of the web report; standardized
+                  UI components in Figma; polished the app's colors, typography,
+                  and animations.
+                </p>
+              </span>
+            </label>
+          </div>
+          <div class="profile card hover flip-card">
+            <input
+              type="checkbox"
+              id="profile-2-flip"
+              class="profile-flip-toggle"
+            />
+            <label for="profile-2-flip" class="profile-flip-inner">
+              <span class="profile-flip-face profile-flip-front">
+                <img src="members/profile_2.jpg" alt="Kaicer R. Adayo" />
+                <h3>Kaicer R. Adayo</h3>
+                <p class="role">UI/UX Designer</p>
+              </span>
+              <span class="profile-flip-face profile-flip-back">
+                <h3>Kaicer R. Adayo</h3>
+                <p class="role">UI/UX Designer</p>
+                <p class="role-description">
+                  Enhanced the LAUNDRO Prototype's overall user experience and
+                  performance by designing key interfaces (including profile,
+                  start-up, and preferences screens), adding interactive
+                  animations to the home page, and optimizing visual assets to
+                  reduce lag.
+                </p>
+              </span>
+            </label>
+          </div>
+          <div class="profile card hover flip-card">
+            <input
+              type="checkbox"
+              id="profile-3-flip"
+              class="profile-flip-toggle"
+            />
+            <label for="profile-3-flip" class="profile-flip-inner">
+              <span class="profile-flip-face profile-flip-front">
+                <img src="members/profile_3.jpg" alt="Brian Jose D. Lim" />
+                <h3>Brian Jose D. Lim</h3>
+                <p class="role">Interaction Designer</p>
+              </span>
+              <span class="profile-flip-face profile-flip-back">
+                <h3>Brian Jose D. Lim</h3>
+                <p class="role">Interaction Designer</p>
+                <p class="role-description">
+                  Improved the prototype's overall user experience by optimizing
+                  animations and page transitions, fixing menu glitches, and
+                  refining visual feedback elements like modal timing and fade
+                  effects for smoother, more seamless interactions.
+                </p>
+              </span>
+            </label>
+          </div>
+          <div class="profile card hover flip-card">
+            <input
+              type="checkbox"
+              id="profile-4-flip"
+              class="profile-flip-toggle"
+            />
+            <label for="profile-4-flip" class="profile-flip-inner">
+              <span class="profile-flip-face profile-flip-front">
+                <img
+                  src="members/profile_4.jpg"
+                  alt="Ashley Nicole T. Mañago"
+                />
+                <h3>Ashley Nicole T. Mañago</h3>
+                <p class="role">Assistant Leader</p>
+              </span>
+              <span class="profile-flip-face profile-flip-back">
+                <h3>Ashley Nicole T. Mañago</h3>
+                <p class="role">Assistant Leader</p>
+                <p class="role-description">
+                  Assisted the group leader in managing system development lifecycles and task allocations. Contributed to frontend implementation, ensuring clean layouts, responsive interface behaviors, and standardizing application views.
+                </p>
+              </span>
+            </label>
+          </div>
+          <div class="profile card hover flip-card">
+            <input
+              type="checkbox"
+              id="profile-5-flip"
+              class="profile-flip-toggle"
+            />
+            <label for="profile-5-flip" class="profile-flip-inner">
+              <span class="profile-flip-face profile-flip-front">
+                <img src="members/profile_5.jpg" alt="Lysalyn P. Pacao" />
+                <h3>Lysalyn P. Pacao</h3>
+                <p class="role">Interface Designer</p>
+              </span>
+              <span class="profile-flip-face profile-flip-back">
+                <h3>Lysalyn P. Pacao</h3>
+                <p class="role">Interface Designer</p>
+                <p class="role-description">
+                  Enhanced Laundro's usability and mobile accessibility by
+                  designing communication portals, implementing interactive
+                  features like slide-up modals and date pickers, and
+                  standardizing the overall layout and navigation for
+                  consistency.
+                </p>
+              </span>
+            </label>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
