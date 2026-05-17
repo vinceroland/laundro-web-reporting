@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laundro - Data Gathering</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .badge-pass {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.8rem;
+      }
+      .badge-na {
+        background: rgba(245, 158, 11, 0.15);
+        color: #f59e0b;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.8rem;
+      }
+      .sev-0 {
+        color: #10b981;
+        font-weight: 600;
+      }
+      .sev-1 {
+        color: #f59e0b;
+        font-weight: 600;
+      }
+      .table-container {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+      #dataTable th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(56, 189, 248, 0.95);
+        backdrop-filter: blur(4px);
+      }
+
+      /* Fixes layout alignment for modern popover elements */
+      .image-modal h3,
+      .image-modal p {
+        text-align: center !important;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Gallery Grid Layout Fixes */
+      .profiles.proto {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      /* Make button card clickable container */
+      button.profile.card {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button.profile.card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: rgba(56, 189, 248, 0.5);
+      }
+
+      /* Image standardizer */
+      button.profile.card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+
+      /* Style for fallback container if image fails or is missing */
+      .image-fallback {
+        width: 100%;
+        height: 120px;
+        background: rgba(56, 189, 248, 0.05);
+        border: 2px dashed rgba(56, 189, 248, 0.3);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #38bdf8;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+      }
+
+      .image-fallback svg {
+        margin-bottom: 4px;
+        opacity: 0.8;
+      }
+
+      .image-fallback span {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      button.profile.card h3 {
+        font-size: 0.95rem;
+        color: #1e293b;
+        margin: 4px 0 0 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+    <nav class="sidebar" aria-label="Main Navigation">
+      <ul>
+        <li>
+          <a href="index.html" class="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="data-gathering.html" class="nav-link selected">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg>
+            Data Gathering
+          </a>
+        </li>
+        <li>
+          <a href="findings.html" class="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.1 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.589 3.588A2.4 2.4 0 0 1 20 8v3.25"/><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="m21 22-2.88-2.88" /><circle cx="16" cy="17" r="3" /></svg>
+            Findings
+          </a>
+        </li>
+        <li>
+          <a href="prototype.html" class="nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 19.655A6 6 0 0 1 6 14v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 3.97"/><path d="M14 15.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z"/><path d="M14.12 3.88 16 2" /><path d="M21 5a4 4 0 0 1-3.55 3.97" /><path d="M3 21a4 4 0 0 1 3.81-4" /><path d="M3 5a4 4 0 0 0 3.55 3.97" /><path d="M6 13H2" /><path d="m8 2 1.88 1.88" /><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13" /></svg>
+            Prototype
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <header>
+        <div class="logo">
+          <img
+            src="laundro.png"
+            alt="Laundro Logo"
+            onerror="this.src = 'https://via.placeholder.com/150x50?text=LAUNDRO'"
+          />
+          <h2>LAUNDRO</h2>
+        </div>
+        <p>A comprehensive report on the development and evaluation of Laundro.</p>
+      </header>
+
+      <div class="description">
+        <h2>Data Gathering</h2>
+        <p>This section outlines the instruments and procedures used to evaluate the prototype. The evaluation was conducted primarily via Heuristic Evaluation and an extended User Survey.</p>
+      </div>
+
+      <section class="card">
+        <h2>Evaluation Instrument & Profile</h2>
+        <p>The primary tool used was the <strong>Heuristic Evaluation Template</strong>, scoring the application across Jakob Nielsen's 10 Usability Heuristics. Evaluators tested both Customer and Shop Owner user flows.</p>
+        <div class="table-container" style="max-height: none; margin-bottom: 1rem">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th>Evaluator Name</th>
+                <th>Role Focus</th>
+                <th>Total Observations Logged</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Ashley Nicole T. Mañago</td><td>Customer / UI Workflows</td><td>10 Observations</td></tr>
+              <tr><td>Vincent Roland C. Atole</td><td>System States / Data Tracking</td><td>10 Observations</td></tr>
+              <tr><td>Lysalyn P. Pacao</td><td>User Navigation / Workflows</td><td>9 Observations</td></tr>
+              <tr><td>Brian Jose D. Lim</td><td>Interface Design / Aesthetics</td><td>9 Observations</td></tr>
+              <tr><td>Kaicer R. Adayo</td><td>Error Prevention / Bug Finding</td><td>9 Observations</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <a href="Heuristic Evaluation Template.xlsx" class="btn" target="_blank">Download Full Raw Template</a>
+      </section>
+      
+      <section class="card">
+        <h2>Survey Respondents Profile & Rankings</h2>
+        <p style="margin-top: 0.5rem; line-height: 1.6">
+          In addition to heuristic tracking, a comprehensive user survey was deployed. The survey collected responses from 20 participants regarding the usability, convenience, and overall impressions of the Laundro app.
+        </p>
+        
+        <div class="table-container" style="max-height: none; margin-bottom: 1rem">
+            <table id="dataTable">
+              <thead>
+                <tr>
+                  <th>Demographic Category</th>
+                  <th>Primary Data Point (Rank 1)</th>
+                  <th>Secondary Data Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gender Distribution</strong></td>
+                  <td>Female (11 respondents)</td>
+                  <td>Male (9 respondents)</td>
+                </tr>
+                <tr>
+                  <td><strong>Year Level</strong></td>
+                  <td>2nd Year (11 respondents)</td>
+                  <td>3rd Year (5), 1st Year (3), 4th Year (1)</td>
+                </tr>
+                <tr>
+                  <td><strong>Laundry Service Experience</strong></td>
+                  <td>No Previous Experience (12 respondents)</td>
+                  <td>Yes (8 respondents)</td>
+                </tr>
+                <tr>
+                  <td><strong>Laundry Service Frequency</strong></td>
+                  <td>Never (10 respondents)</td>
+                  <td>Rarely (6), Weekly (2), Monthly (2)</td>
+                </tr>
+                <tr>
+                  <td><strong>App Familiarity</strong></td>
+                  <td>Familiar with Booking Apps (14 respondents)</td>
+                  <td>Not Familiar (6 respondents)</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Project Documentation & Process</h2>
+        <p style="margin-top: 0.5rem; line-height: 1.6; margin-bottom: 1rem;">
+          Below is a gallery showcasing our team's active work process throughout the data gathering, interface iteration, and prototype evaluation stages. Click on any block to expand the screenshot and review logs.
+        </p>
+        
+        <div class="profiles proto">
+          <button class="profile card" popovertarget="doc-modal-1">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Screenshot</span>
+            </div>
+            <h3>Brainstorming</h3>
+          </button>
+          
+          <button class="profile card" popovertarget="doc-modal-2">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Logs</span>
+            </div>
+            <h3>Heuristic Evaluation I</h3>
+          </button>
+          
+          <button class="profile card" popovertarget="doc-modal-3">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Logs</span>
+            </div>
+            <h3>Heuristic Evaluation II</h3>
+          </button>
+          
+          <button class="profile card" popovertarget="doc-modal-4">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Metrics</span>
+            </div>
+            <h3>Usability Testing</h3>
+          </button>
+          
+          <button class="profile card" popovertarget="doc-modal-5">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Code Flow</span>
+            </div>
+            <h3>UI Iteration</h3>
+          </button>
+          
+          <button class="profile card" popovertarget="doc-modal-6">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Architecture</span>
+            </div>
+            <h3>System Validation</h3>
+          </button>
+          
+          <button class="profile card" popovertarget="doc-modal-7">
+            <div class="image-fallback">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>View Synthesis</span>
+            </div>
+            <h3>Final Synthesis</h3>
+          </button>
+        </div>
+      </section>
+
+      <div class="image-modal" id="doc-modal-1" popover>
+        <button class="close-btn" popovertarget="doc-modal-1" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/Brainstorming.png" alt="Brainstorming Session" onerror="this.style.display='none';" />
+        <h3>Collaborative Brainstorming</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Documentation of our recurring virtual group call sessions. The team explicitly stays aligned here to pitch, critique, and exchange layout ideas to shape our core user workflows.</p>
+      </div>
+
+      <div class="image-modal" id="doc-modal-2" popover>
+        <button class="close-btn" popovertarget="doc-modal-2" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/Heuristic_Assessment.png" alt="Heuristic Log 1" onerror="this.style.display='none';" />
+        <h3>Heuristic Assessment (Part 1)</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Rigorously checking the Laundro UI components against Nielsen's 10 principles to systematically pinpoint design inconsistencies and navigation flaws.</p>
+      </div>
+
+      <div class="image-modal" id="doc-modal-3" popover>
+        <button class="close-btn" popovertarget="doc-modal-3" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/Heuristic_Assessment2.png" alt="Heuristic Log 2" onerror="this.style.display='none';" />
+        <h3>Heuristic Assessment (Part 2)</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Reviewing and mapping identified cosmetic or system flaws into respective severity categories to lay down precise actionable improvements.</p>
+      </div>
+
+      <div class="image-modal" id="doc-modal-4" popover>
+        <button class="close-btn" popovertarget="doc-modal-4" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/Usability_Testing.png" alt="Usability Forms" onerror="this.style.display='none';" />
+        <h3>Usability Testing & Survey Tracking</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Managing quantitative user feedback forms to extract demographic matrices and compute overall usability satisfaction ratings.</p>
+      </div>
+
+      <div class="image-modal" id="doc-modal-5" popover>
+        <button class="close-btn" popovertarget="doc-modal-5" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/Code_Structuring.png" alt="UI Modifications" onerror="this.style.display='none';" />
+        <h3>UI Iteration & Code Structuring</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Translating evaluation suggestions directly into structural code adjustments to perfect margins, button responses, and accessibility rules.</p>
+      </div>
+
+      <div class="image-modal" id="doc-modal-6" popover>
+        <button class="close-btn" popovertarget="doc-modal-6" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/System_Validation.png" alt="Flow Validation" onerror="this.style.display='none';" />
+        <h3>System Validation & Architecture Tweaks</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Assessing structural parameters and validating that functional components, modals, and layouts scale cleanly across responsive views.</p>
+      </div>
+
+      <div class="image-modal" id="doc-modal-7" popover>
+        <button class="close-btn" popovertarget="doc-modal-7" popovertargetaction="hide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+        <img src="documentation/Final_Findings.png" alt="Final Assembly" onerror="this.style.display='none';" />
+        <h3>Final Findings Synthesis</h3>
+        <p style="text-align:center; margin-top:0.5rem; max-width:600px;">Consolidating cross-examination remarks and compiling metrics to generate comprehensive usability suggestions for the Laundro report platform.</p>
+      </div>
+    </main>
+  </body>
+</html>
